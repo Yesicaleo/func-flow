@@ -1,6 +1,6 @@
 import math
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import scipy.interpolate as ip
 from scipy.ndimage import gaussian_filter1d
 from utils.helpers import crossings_nonzero_all, find_index, peakdet, replace_nan
@@ -184,7 +184,7 @@ def calc_spring_transition_timing_magnitude(flow_matrix, class_number, summer_ti
             if summer_timings[column_number] is not None and timings[-1] > summer_timings[column_number]:
                 timings[-1] = None
 
-            #_spring_transition_plotter(x_axis, flow_data, filter_data, x_axis_window, spl_first_deriv, new_index, max_flow_index, timings, current_search_window_left, current_search_window_right, spl, column_number, maxarray)
+            _spring_transition_plotter(x_axis, flow_data, filter_data, x_axis_window, spl_first_deriv, new_index, max_flow_index, timings, current_search_window_left, current_search_window_right, spl, column_number, maxarray)
 
     return timings, magnitudes
 
@@ -258,22 +258,22 @@ def calc_spring_transition_roc(flow_matrix, spring_timings, summer_timings):
     return rocs_only_neg
 
 
-# def _spring_transition_plotter(x_axis, flow_data, filter_data, x_axis_window, spl_first_deriv, new_index, max_flow_index, timing, current_search_window_left, current_search_window_right, spl, column_number, maxarray):
+def _spring_transition_plotter(x_axis, flow_data, filter_data, x_axis_window, spl_first_deriv, new_index, max_flow_index, timing, current_search_window_left, current_search_window_right, spl, column_number, maxarray):
 
-#     plt.figure()
-#     plt.plot(x_axis, flow_data)
-#     plt.plot(x_axis, filter_data)
-#     plt.plot(x_axis_window, spl_first_deriv(x_axis_window))
-#     plt.plot(new_index, spl_first_deriv(new_index), 'x')
+     plt.figure()
+     plt.plot(x_axis, flow_data)
+     plt.plot(x_axis, filter_data)
+     plt.plot(x_axis_window, spl_first_deriv(x_axis_window))
+     plt.plot(new_index, spl_first_deriv(new_index), 'x')
 
-#     plt.axvline(x = max_flow_index, color='green', ls=':')
-#     plt.axvline(x = timing[-1], color='red')
-#     plt.axvline(x = max_flow_index - current_search_window_left)
-#     plt.axvline(x = max_flow_index + current_search_window_right)
+     plt.axvline(x = max_flow_index, color='green', ls=':')
+     plt.axvline(x = timing[-1], color='red')
+     plt.axvline(x = max_flow_index - current_search_window_left)
+     plt.axvline(x = max_flow_index + current_search_window_right)
 
-#     for data in maxarray:
-#         plt.plot(data[0], data[1], '^')
+     for data in maxarray:
+         plt.plot(data[0], data[1], '^')
 
-#     plt.plot(x_axis_window, spl(x_axis_window))
-#     # plt.yscale('log')
-#     plt.savefig('post_processedFiles/Boxplots/{}.png'.format(column_number))
+     plt.plot(x_axis_window, spl(x_axis_window))
+     # plt.yscale('log')
+     plt.savefig('post_processedFiles/Boxplots/{}.png'.format(column_number))
