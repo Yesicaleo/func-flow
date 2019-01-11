@@ -262,11 +262,11 @@ def _spring_transition_plotter(x_axis, flow_data, filter_data, x_axis_window, sp
 
      plt.figure()
      plt.plot(x_axis, flow_data)
-     plt.plot(x_axis, filter_data)
-     plt.plot(x_axis_window, spl_first_deriv(x_axis_window))
-     plt.plot(new_index, spl_first_deriv(new_index), 'x')
+     #plt.plot(x_axis, filter_data)
+     #plt.plot(x_axis_window, spl_first_deriv(x_axis_window))
+     #plt.plot(new_index, spl_first_deriv(new_index), 'x')
 
-     plt.axvline(x = max_flow_index, color='green', ls=':')
+     #plt.axvline(x = max_flow_index, color='green', ls=':')
      plt.axvline(x = timing[-1], color='red')
      plt.axvline(x = max_flow_index - current_search_window_left)
      plt.axvline(x = max_flow_index + current_search_window_right)
@@ -274,6 +274,6 @@ def _spring_transition_plotter(x_axis, flow_data, filter_data, x_axis_window, sp
      for data in maxarray:
          plt.plot(data[0], data[1], '^')
 
-     plt.plot(x_axis_window, spl(x_axis_window))
+     #plt.plot(x_axis_window, spl(x_axis_window))
      # plt.yscale('log')
      plt.savefig('post_processedFiles/Boxplots/{}.png'.format(column_number))
