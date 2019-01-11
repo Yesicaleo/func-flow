@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import scipy.interpolate as ip
 from scipy.ndimage import gaussian_filter1d
 from utils.helpers import find_index, peakdet, replace_nan
@@ -83,7 +83,7 @@ def calc_start_of_summer(matrix, class_number, summer_params=def_summer_params):
                 start_dates[-1] = index
                 break
 
-       # _summer_baseflow_plot(x_axis, column_number, flow_data, spl, spl_first, start_dates, threshold, max_flow_index, maxarray)
+        _summer_baseflow_plot(x_axis, column_number, flow_data, spl, spl_first, start_dates, threshold, max_flow_index, maxarray)
 
     return start_dates
 
@@ -150,21 +150,21 @@ def calc_summer_baseflow_durations_magnitude(flow_matrix, summer_start_dates, fa
     return summer_10_magnitudes, summer_50_magnitudes, summer_flush_durations, summer_wet_durations, summer_no_flow_counts
 
 
-#def _summer_baseflow_plot(x_axis, column_number, flow_data, spl, spl_first, start_dates, threshold, max_flow_index, maxarray):
+def _summer_baseflow_plot(x_axis, column_number, flow_data, spl, spl_first, start_dates, threshold, max_flow_index, maxarray):
 
-   # plt.figure(column_number)
+    plt.figure(column_number)
 
-   # plt.plot(x_axis, spl_first(x_axis), color='red')  # spl 1st derivative
-   # plt.plot(flow_data, '-', color='blue')  # raw
+    #plt.plot(x_axis, spl_first(x_axis), color='red')  # spl 1st derivative
+    plt.plot(flow_data, '-', color='blue')  # raw
     #plt.plot(x_axis, spl(x_axis), '--', color='orange')  # spline
-    #plt.title('Start of Summer Metric')
-    #plt.xlabel('Julian Day')
-    #plt.ylabel('Flow, ft^3/s')
-    #if start_dates[-1] is not None:
-       # plt.axvline(start_dates[-1], color='red')
+    plt.title('Start of Summer Metric')
+    plt.xlabel('Julian Day')
+    plt.ylabel('Flow, ft^3/s')
+    if start_dates[-1] is not None:
+        plt.axvline(start_dates[-1], color='red')
     #plt.axhline(threshold, color='green')
     #plt.axvline(max_flow_index, ls=':')
-    #for data in maxarray:
-        #plt.plot(data[0], data[1], '^')
+    for data in maxarray:
+        plt.plot(data[0], data[1], '^')
 
-    #plt.savefig('post_processedFiles/Boxplots/{}.png'.format(column_number))
+    plt.savefig('post_processedFiles/Boxplots/{}.png'.format(column_number))
