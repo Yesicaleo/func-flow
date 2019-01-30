@@ -13,7 +13,7 @@ from utils.helpers import create_wateryear_labels
 from params import general_params
 #from params import summer_params #1/29/2019 line added to add sigma value to csv name
 sigmaa=1
-#sigmas=range[5,10,1]
+#sigmaa=range[1,10,1]
 
 #for sigmaa in sigmas
 

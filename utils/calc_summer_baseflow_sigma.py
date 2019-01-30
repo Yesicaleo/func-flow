@@ -42,10 +42,10 @@ def calc_start_of_summer(matrix, class_number,sigmaaa, summer_params=def_summer_
         flow_data = replace_nan(flow_data)
 
         """Set specific parameters for rain-dominated classes"""
-        if class_number == 4 or 6 or 7 or 8:
-            sensitivity = 1100
-            peak_sensitivity = .1
-            #sigma = 4
+        #if class_number == 4 or 6 or 7 or 8:
+         #   sensitivity = 1100
+          #  peak_sensitivity = .1
+           # sigma = 4
 
         """Smooth out the timeseries"""
         smooth_data = gaussian_filter1d(flow_data, sigma)
