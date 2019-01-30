@@ -56,4 +56,4 @@ elif calculation_number == 8:
 
 
 print('')
-print('Done!!!!!!!!!!!!!!!!')
+print('Done! =)......')
