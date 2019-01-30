@@ -5,14 +5,14 @@ import scipy.interpolate as ip
 from scipy.ndimage import gaussian_filter1d
 from utils.helpers import find_index, peakdet, replace_nan
 from params import summer_params as def_summer_params
+#sigmaaa=10
 
-
-def calc_start_of_summer(matrix, class_number, summer_params=def_summer_params):
+def calc_start_of_summer(matrix, class_number,sigmaaa, summer_params=def_summer_params):
     """Set adjustable parameters for start of summer date detection"""
     max_zero_allowed_per_year = summer_params['max_zero_allowed_per_year']
     max_nan_allowed_per_year = summer_params['max_nan_allowed_per_year']
     # determines amount of smoothing for summer timing detection
-    sigma = summer_params['sigma']
+    sigma = sigmaaa #summer_params['sigma']
     # increased sensitivity returns smaller threshold for derivative
     sensitivity = summer_params['sensitivity']
     # identifies last major peak after which to search for start date
@@ -45,7 +45,7 @@ def calc_start_of_summer(matrix, class_number, summer_params=def_summer_params):
         if class_number == 4 or 6 or 7 or 8:
             sensitivity = 1100
             peak_sensitivity = .1
-            sigma = 4
+            #sigma = 4
 
         """Smooth out the timeseries"""
         smooth_data = gaussian_filter1d(flow_data, sigma)

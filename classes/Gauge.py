@@ -5,12 +5,17 @@ from utils.matrix_convert import insert_column_header
 from utils.calc_all_year import calc_all_year
 from utils.calc_winter_highflow import calc_winter_highflow_annual, calc_winter_highflow_POR
 from utils.calc_spring_transition import calc_spring_transition_timing_magnitude, calc_spring_transition_roc, calc_spring_transition_duration
-from utils.calc_summer_baseflow import calc_start_of_summer, calc_summer_baseflow_durations_magnitude
+from utils.calc_summer_baseflow_sigma import calc_start_of_summer, calc_summer_baseflow_durations_magnitude
 from utils.calc_fall_flush import calc_fall_flush_timings_durations
 from utils.calc_fall_winter_baseflow import calc_fall_winter_baseflow
 from utils.helpers import remove_offset_from_julian_date
 from utils.helpers import create_wateryear_labels
 from params import general_params
+#from params import summer_params #1/29/2019 line added to add sigma value to csv name
+sigmaa=1
+#sigmas=range[5,10,1]
+
+#for sigmaa in sigmas
 
 
 class Gauge:
@@ -115,7 +120,7 @@ class Gauge:
 
     def start_of_summer(self):
         summer_timings = calc_start_of_summer(
-            self.flow_matrix, self.class_number)
+            self.flow_matrix, self.class_number,sigmaa)
         self.summer_timings = np.array(summer_timings, dtype=np.float)
 
     def summer_baseflow_durations_magnitude(self):
@@ -134,7 +139,7 @@ class Gauge:
 
     def fall_flush_timings_durations(self):
         summer_timings = calc_start_of_summer(
-            self.flow_matrix, self.class_number)
+            self.flow_matrix, self.class_number,sigmaa)
         fall_timings, fall_magnitudes, fall_wet_timings, fall_durations = calc_fall_flush_timings_durations(
             self.flow_matrix, summer_timings)
         self.fall_timings = np.array(fall_timings, dtype=np.float)
@@ -144,7 +149,7 @@ class Gauge:
 
     def fall_winter_baseflow(self):
         summer_timings = calc_start_of_summer(
-            self.flow_matrix, self.class_number)
+            self.flow_matrix, self.class_number,sigmaa)
         self.fall_flush_timings_durations()
         wet_baseflows_10 = calc_fall_winter_baseflow(
             self.flow_matrix, self.fall_wet_timings, summer_timings)
@@ -161,7 +166,7 @@ class Gauge:
     #         julian_start_date = datetime.strptime("{}/2001".format(self.start_date), "%m/%d/%Y").timetuple().tm_yday
     #         return int(remove_offset_from_julian_date(value, julian_start_date))
 
-    #     self.start_of_summer()
+    #     self.start_of_summer()s
     #     self.fall_flush_timings_durations()
     #     self.spring_transition_timing_magnitude()
 
@@ -225,6 +230,7 @@ class Gauge:
 
         low_end = general_params['annual_result_low_Percentille_filter']
         high_end = general_params['annual_result_high_Percentille_filter']
+        #sigma = summer_params['sigma']
 
         """Filter data only to contain from low_end to high_end"""
         self.average_annual_flows = [np.nan if ele < np.nanpercentile(self.average_annual_flows, low_end) or ele > np.nanpercentile(
@@ -325,9 +331,9 @@ class Gauge:
         if len(new_result_matrix) > 35:
             new_result_matrix = new_result_matrix[:-4]
 
-        np.savetxt("post_processedFiles/{}_annual_result_matrix.csv".format(
-            int(self.gauge_number)), new_result_matrix, delimiter=",", fmt="%s")
-
+        np.savetxt("post_processedFiles/{}_sigma{}_annual_result_matrix.csv".format(
+            int(self.gauge_number), int(sigmaa)), new_result_matrix, delimiter=",", fmt="%s")
+#1/29/2019 adding sigma to the name in the two lines above
         '''File format for FFC QA data input'''
         # np.savetxt("post_processedFiles/gage{}_class{}_annual_result_matrix.csv".format(
         #     int(self.gauge_number), int(self.class_number)), new_result_matrix, delimiter=",", fmt="%s")

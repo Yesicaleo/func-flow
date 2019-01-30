@@ -1,7 +1,7 @@
 from utils.calc_drh import calc_drh
 from utils.calc_all_year import calc_all_year
 from utils.calc_winter_highflow import calc_winter_highflow_annual
-from utils.calc_summer_baseflow import calc_start_of_summer, calc_summer_baseflow_durations_magnitude
+from utils.calc_summer_baseflow_sigma import calc_start_of_summer, calc_summer_baseflow_durations_magnitude
 from utils.calc_fall_flush import calc_fall_flush_timings_durations
 from utils.calc_spring_transition import calc_spring_transition_timing_magnitude, calc_spring_transition_roc, calc_spring_transition_duration
 from utils.calc_fall_winter_baseflow import calc_fall_winter_baseflow

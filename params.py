@@ -55,7 +55,7 @@ spring_params = {
 summer_params = {
     'max_zero_allowed_per_year': 270,
     'max_nan_allowed_per_year': 100,
-    'sigma': 7,  # scalar to set amount of smoothing
+#    'sigma': 7,  # scalar to set amount of smoothing
     'sensitivity': 900,  # increased sensitivity returns smaller threshold for derivative
     # identifies last major peak after which to search for start date
     'peak_sensitivity': 0.2,
